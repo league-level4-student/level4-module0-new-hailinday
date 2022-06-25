@@ -15,7 +15,9 @@ public class EncapsulationDemo {
      */
 
     public static void main(String[] args) {
-
+    	Car car = new Car(10.0, 8.0, "Pink", 1.0);
+    	SUV suv = new SUV(10.0, 0, "Pink", 1.0, 4);
+    	suv.offroad();
     }
 
 }
@@ -163,7 +165,7 @@ class SUV extends Car {
 
     }
 
-    private void offroad() {
+    public void offroad() {
 
         drive();
 
