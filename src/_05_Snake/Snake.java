@@ -39,7 +39,7 @@ public class Snake {
 
         int nextX;
         int nextY;
-
+        
         
         /*
          * Change the Location of each SnakeSegment in your snake ArrayList to

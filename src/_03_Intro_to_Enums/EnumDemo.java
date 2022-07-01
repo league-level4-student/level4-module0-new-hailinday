@@ -19,7 +19,7 @@ public class EnumDemo {
      * own files as shown in StatesOfMatter.java.
      */
 
-    enum Planets {
+    public enum Planets {
 
         /*
          * enums can have member variables and methods just like classes.

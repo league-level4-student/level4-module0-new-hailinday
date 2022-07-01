@@ -59,7 +59,7 @@ public class EncapsulateTheDataTest {
 
         testData.setDegreesTurned(randomPositiveNum);
 
-        assertEquals(randomPositiveNum, testData.getDegreesTurned());
+        assertEquals(randomPositiveNum, testData.getDegreesTurned(), 0.001);
 
     }
 
