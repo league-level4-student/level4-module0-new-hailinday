@@ -102,21 +102,24 @@ public class SnakeGame implements ActionListener, KeyListener {
          * If an arrow key is pressed, set the snake's direction accordingly.
          */
         switch (e.getKeyCode()) {
-        case KeyEvent.VK_UP: {
-        		snake.setDirection(Direction.UP);;
-        }
-        case KeyEvent.VK_LEFT: {
-        		snake.setDirection(Direction.LEFT);
-        }
-        case KeyEvent.VK_RIGHT: {
-    		snake.setDirection(Direction.RIGHT);
-        }
-        case KeyEvent.VK_DOWN: {
-    		snake.setDirection(Direction.DOWN);
-        }
-        }
+        case KeyEvent.VK_UP: 
+        		snake.setDirection(Direction.UP);
+        		break;
         
-
+        case KeyEvent.VK_LEFT: 
+        		snake.setDirection(Direction.LEFT);
+        		break;
+        
+        case KeyEvent.VK_RIGHT: 
+    		snake.setDirection(Direction.RIGHT);
+    		break;
+        
+        case KeyEvent.VK_DOWN: 
+    		snake.setDirection(Direction.DOWN);
+    		break;
+        
+        
+        }
     }
 
 	private void setFoodLocation() {
@@ -135,9 +138,8 @@ public class SnakeGame implements ActionListener, KeyListener {
 		 */
 		Random rand = new Random();
 		Location randLoc = new Location(rand.nextInt(WIDTH),rand.nextInt(HEIGHT));
-		foodLocation.setX(randLoc.getX());
-		foodLocation.setY(randLoc.getY());
-		snake.isLocationOnSnake(randLoc);
+		foodLocation = randLoc;
+		snake.isLocationOnSnake(foodLocation);
 	}
 
 	private void gameOver() {
@@ -153,7 +155,9 @@ public class SnakeGame implements ActionListener, KeyListener {
 			setFoodLocation();
 			timer.restart();
 		} else {
-			
+			System.exit(0);
+			window.dispose();
+			window.setVisible(false);
 		}
 		/*
 		 * If the user wants to play again, call the snake's resetLocation method and
@@ -171,17 +175,22 @@ public class SnakeGame implements ActionListener, KeyListener {
 	public void actionPerformed(ActionEvent e) {
 
 		// Call the snake's update method.
-
+		snake.update();
 		/*
 		 * If the snake is colliding with its own body or if the snake moves outside the
 		 * bounds of the frame call the gameOver method.
 		 */
-
+		if (snake.isHeadCollidingWithBody() || snake.isOutOfBounds()) {
+			gameOver();
+		}
 		/*
 		 * If the location of the snake's head is equal to the location of the food,
 		 * feed the snake and set the food location.
 		 */
-
+		if (snake.getHeadLocation().getX()==foodLocation.getX() && snake.getHeadLocation().getY()==foodLocation.getY()) {
+			snake.feed();
+			setFoodLocation();
+		}
 		panel.repaint();
 	}
 }

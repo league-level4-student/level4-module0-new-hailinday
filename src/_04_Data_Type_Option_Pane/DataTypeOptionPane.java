@@ -52,7 +52,7 @@ public class DataTypeOptionPane {
     		
     		private final int bits;
     		
-    		private DataType (int bits) {
+    	private DataType (int bits) {
         		this.bits = bits;
         }
         public int getBits() {
