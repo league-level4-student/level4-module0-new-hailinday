@@ -41,20 +41,26 @@ public class Snake {
         int nextY = 0;
         switch(currentDirection) {
         case UP: 
-        	nextX = getHeadLocation().getX();
-        	nextY = getHeadLocation().getY() - 1;
+        	//nextX = getHeadLocation().getX();
+        	nextY -= 1;
+        	System.out.println("up");
         	break;
         case DOWN: 
-        	nextX = getHeadLocation().getX();
-        	nextY = getHeadLocation().getY() + 1;
+        	//nextX = getHeadLocation().getX();
+        	nextY += 1;
+        	System.out.println("d");
         	break;
         case RIGHT: 
-        	nextX = getHeadLocation().getX() + 1;
-        	nextY = getHeadLocation().getY();
+        	nextX += 1;
+        	System.out.println("yes");
+
+        	//nextY = getHeadLocation().getY();
         	break;
         case LEFT: 
-        	nextX = getHeadLocation().getX() - 1;
-        	nextY = getHeadLocation().getY();
+        	nextX -= 1;
+        	System.out.println("yes");
+
+        	//nextY = getHeadLocation().getY();
         	break;
         }
         
@@ -65,10 +71,14 @@ public class Snake {
          * Use a loop starting at the end of the ArrayList and stop before the
          * head of the snake (index 0) or you will go out of bounds.
          */
-        for (int i = snake.size()-1; i > 0; i++) {
-			Location help = snake.get(i).getLocation();
+        for (int i = snake.size()-1; i > 0; i--) {
+			/*Location help = snake.get(i).getLocation();
         	snake.get(i).setLocation(snake.get(i-1).getLocation());
 			snake.get(i-1).setLocation(help);
+			*/
+        	SnakeSegment start = snake.get(i);
+        	SnakeSegment tail = snake.get(i-1);
+        	start.setLocation(tail.getLocation());
 		}
         
 
@@ -77,7 +87,7 @@ public class Snake {
          * calculated in step 1. Then set the head's location equal to the new
          * location.
          */
-        Location loca = new Location(nextX,nextY);
+        Location loca = new Location(head.getLocation().getX() + nextX,head.getLocation().getY() + nextY);
         head.setLocation(loca);
 
         // Set the canMove member variable to true.
@@ -97,21 +107,10 @@ public class Snake {
          * opposite.
          */
         
-        if (isOppositeDirection(direction) && canMove == true) {
+        if (!isOppositeDirection(direction) && canMove == true) {
         	currentDirection = direction;
             canMove = false;
-		} else if (isOppositeDirection(direction) && canMove == true) {
-			currentDirection = direction;
-            canMove = false;
-		} else if (isOppositeDirection(direction) && canMove == true) {
-			currentDirection = direction;
-            canMove = false;
-		} else if (isOppositeDirection(direction) && canMove == true) {
-			currentDirection = direction;
-            canMove = false;
-		}
-        
-
+		} 
     }
 
     private boolean isOppositeDirection(Direction direction) {
