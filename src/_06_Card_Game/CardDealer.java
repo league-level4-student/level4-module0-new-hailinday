@@ -8,6 +8,7 @@ import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import _06_Card_Game.Card.Rank;
@@ -21,9 +22,7 @@ public class CardDealer implements ActionListener {
 	JButton done = new JButton();
 	int total = 0;
     public static void main(String[] args) {
-
-    	
-	}
+    }
     public void deckMake () {
     	Rank[] ranks = Rank.values();
     	Suit[] suits = Suit.values();
@@ -42,15 +41,39 @@ public class CardDealer implements ActionListener {
     	}
     }
     public void blackjack () {
+    	frame.setVisible(true);
+    	frame.add(panel);
+    	panel.add(more);
+    	panel.add(done);
     	more.addActionListener(this);
+    	more.setText("Add a card");
     	done.addActionListener(this);
+    	done.setText("Be done");
+    	frame.pack();
     }
+    public void checkWinner () {
+    	Random ran = new Random();
+    	int x = ran.nextInt(6) + 15;
+    	if (total == x) {
+    		JOptionPane.showMessageDialog(null, "Tie, nobody wins");
+    	} else if (total > x && total <= 21) {
+    		JOptionPane.showMessageDialog(null, "Nice, you won, your opponent had " + x);
+		} else {
+    		JOptionPane.showMessageDialog(null, "Unlucky, you lost, your opponent had " + x);
+		}
+    }
+    
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource()==more) {
-			Random rand = new Random(13);
-			total += rand.nextInt();
+			Random rand = new Random();
+			total += rand.nextInt(10);
+			System.out.println("Your total card value is " + total);
+		} else if (e.getSource()==done) {
+			checkWinner();
+			frame.setVisible(false);
+			frame.dispose();
 		}
 	}
     
